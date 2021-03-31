@@ -66,7 +66,7 @@ def perfs():
 
 
 #risqueMarges - Renvoie un dictionnaire qui calcule le risque associé à chaque marge comprise entre 20 et 366 jours
-	      - alpha et beta : parametres de la loi gamma utilisée pour modéliser le risque
+#	      - alpha et beta : parametres de la loi gamma utilisée pour modéliser le risque
 def risqueMarges(alpha,beta):
     marges = range(20,366)
     risque = [(1-stats.gamma.cdf(marges[i],a=alpha,scale=beta)) for i in range(len(marges))]
