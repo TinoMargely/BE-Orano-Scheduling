@@ -63,3 +63,11 @@ def perfs():
     for i in range(14):
         predictor.append(np.poly1d(np.polyfit(x,y[i],4)))
     return(predictor)
+
+
+#risqueMarges - Renvoie un dictionnaire qui calcule le risque associé à chaque marge comprise entre 20 et 366 jours
+	      - alpha et beta : parametres de la loi gamma utilisée pour modéliser le risque
+def risqueMarges(alpha,beta):
+    marges = range(20,366)
+    risque = [(1-stats.gamma.cdf(marges[i],a=alpha,scale=beta)) for i in range(len(marges))]
+    return dict(zip(marges,risque))
