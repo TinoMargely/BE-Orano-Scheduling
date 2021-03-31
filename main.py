@@ -1,25 +1,7 @@
-# Importation des packages 
-import pandas as pd
-from datetime import datetime, timedelta
-import numpy as np
-import math
-import networkx as nx
-from networkx.drawing.nx_pydot import graphviz_layout
-from matplotlib import pyplot as plt
-import copy
-import matplotlib.patches as patches
-import matplotlib.colors as mcolors
-import seaborn as sns
-
-
 #Importation des fonctions : 
-from dataframe_to_list import dataframe_to_list
-from performances import perfs
 from Solve_PLNE import solvePLNEMultiMachines
-from get_values import getValues
-from Show_EDT import showEDT
-from show_marges import showMarge
-from Show_Rendements import showRendements
+from utils import *
+from graphics import *
 
 # Lecture des donnees du fichier Orano-données-Double.xlsx :
 data = pd.read_excel("data/raw/Orano-données-Double.xlsx", sheet_name="Optim", header=5, usecols=[3,4,5,6,7], nrows=47)

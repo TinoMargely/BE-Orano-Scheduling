@@ -2,6 +2,7 @@ from pulp import *
 from os import dup, dup2, close
 import time
 import numpy as np
+
 def solvePLNEMultiMachines(disp, dmax, duree,M,bigM,mu,a,predictors):    
     
     Tasks=range(len(disp)) #Liste des taches 
