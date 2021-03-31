@@ -1,7 +1,5 @@
 # BE-Orano-Scheduling
 
-#BE-Orano Scheduling
-
 **Pitch :** le but de ce projet est d’optimiser l’ordonnancement d’un module de production. 
 
 **Langage :** python.
