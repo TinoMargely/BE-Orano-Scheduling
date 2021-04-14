@@ -55,7 +55,7 @@ def dataframe_to_list(data):
 
 #perfs- Récupère les données des performances de chaque machine pour des teneurs données, puis rend les courbes exploitables en y fittant une fonction polynomiale
 def perfs():
-    data=pd.read_excel("data/raw/Orano-données_2.xlsx", sheet_name="Matrice perf",header=2,usecols=range(2,17), nrows=15)
+    data=pd.read_excel("data/raw/Orano-données_2.xlsx", sheet_name="Matrice perf",header=18,usecols=range(2,17), nrows=15)
     data=np.array(data)
     x=data[0]
     y=data[1:15]
@@ -64,3 +64,12 @@ def perfs():
         predictor.append(np.poly1d(np.polyfit(x,y[i],4)))
     return(predictor)
 
+#Dataframe to List - Transforme en problème au format "jour"(12/02/2021 par ex) en format compréhensible par le modèle (t=1.3 <=> 1.3 jours après la première date)
+
+def dataframe_to_list_2(data):
+    dataframe = data.copy()
+    min_date = dataframe['disp'].min().to_pydatetime()
+    dataframe['disp'] = dataframe['disp'].apply(lambda x: (x.to_pydatetime()- min_date).total_seconds()/SECONDS_PER_DAY)
+    dataframe['max'] = dataframe['max'].apply(lambda x: (x.to_pydatetime()-min_date).total_seconds()/SECONDS_PER_DAY)
+    
+    return(list(dataframe['disp']),list(dataframe['max']))

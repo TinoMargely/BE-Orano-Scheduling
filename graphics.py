@@ -58,11 +58,40 @@ def showMarge(machine,livVal,dmax,M):
 def showRendements(machine,mu,predictors):
     x=np.linspace(0.02,0.05,200)
     print("RENDEMENTS :")
+    M = len(machine)
+    plt.figure(figsize=(12,5*M))
+    for m in range(M):
+        plt.subplot(int(M/2)+1,2,m+1)
+        plt.plot(x,predictors[m](x))
+        for i in machine[m]:
+            plt.line(mu[i],predictors[m](mu[i]), 'ro')
+            plt.annotate(str(i),(mu[i],predictors[m](mu[i])-10),color="red",weight='bold',fontsize=10,ha='center',va='center')
+        plt.title("Machine "+str(m))
+        plt.show()
+        
+def showRendements(machine,mu,predictors):
+    x=np.linspace(0.02,0.05,200)
+    print("RENDEMENTS :")
     for m in range(len(machine)):
         plt.figure(figsize=(12,8))
         plt.plot(x,predictors[m](x))
         for i in machine[m]:
             plt.plot(mu[i],predictors[m](mu[i]), 'ro')
-            plt.annotate(str(i),(mu[i],predictors[m](mu[i])+10),color="red",weight='bold',fontsize=10,ha='center',va='center')
+            plt.annotate(str(i),(mu[i],predictors[m](mu[i])-10),color="red",weight='bold',fontsize=10,ha='center',va='center')
         plt.title("Machine "+str(m))
         plt.show()
+
+def showMarge(machine,livVal,dmax,M):
+    print("MARGES : ")
+    marges=np.array(dmax)-np.array(livVal)
+    marges2=[[] for m in range(M)]
+    plt.figure(figsize=(15,M*5))
+    for m in range(M):
+        for i in machine[m]:
+            marges2[m].append(marges[i])
+        plt.subplot(int(M/2)+1,2,m+1)
+        plt.ylim(0,np.max(marges)*1.1)
+        sns.barplot(machine[m],marges2[m])
+        plt.title("Marges sur la machine {}".format(m))
+        plt.xlabel("Tache")
+        plt.ylabel("Marges")
