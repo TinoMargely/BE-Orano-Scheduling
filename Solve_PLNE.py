@@ -53,12 +53,6 @@ def solvePLNEMultiMachines(disp, dmax, duree,M,bigM,mu,a,predictors):
             for k in Tasks:
                 if i!=j and i!=k and j!=k:
                     for m in Machine : 
-                        #model += z3[i,j,k,m] <= y[i,m]
-                        #model += z3[i,j,k,m] <= y[j,m]
-                        #model += z3[i,j,k,m] <= y[k,m]
-                        #model += z3[i,j,k,m] >= (y[i,m]+y[j,m]+y[k,m])-2
-                        #model += z3[i,j,k,m] >= 0
-                        #model += x[i,j,m]+x[j,k,m]-1 <= x[i,k,m]+bigM*(1-z3[i,j,k,m])
                         model += z3[i,j,k,m]<=z2[i,j,m]
                         model += z3[i,j,k,m]<=z2[i,k,m]
                         model += z3[i,j,k,m]>=(z2[i,j,m]+z2[j,k,m])-1
