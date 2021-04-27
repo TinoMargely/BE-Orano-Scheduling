@@ -4,6 +4,8 @@ import matplotlib.colors as mcolors
 import numpy as np
 import seaborn as sns
 
+plt.style.use('ggplot')
+
 def showEDT(machine,deb2,dem2,real2,liv2):
     print('PLANIFICATION :')     
     for m in range(len(machine)):
@@ -105,7 +107,20 @@ def showRendements(machine,mu,predictors):
             plt.annotate(str(i),(mu[i],predictors[m](mu[i])-10),color="red",weight='bold',fontsize=10,ha='center',va='center')
         plt.title("Machine "+str(m))
         plt.show()
-
+        
+def showRendements(machine,mu,predictors):
+    x=np.linspace(0.02,0.05,200)
+    print("RENDEMENTS :")
+    M = len(machine)
+    plt.figure(figsize=(15,5*M))
+    for m in range(M):
+        plt.subplot(int(M/2)+1,2,m+1)
+        plt.plot(x,predictors[m](x), '-',[mu[i] for i in machine[m]],[predictors[m](mu[i]) for i in machine[m]],'ro' )
+        for i in machine[m]:
+            plt.annotate(str(i),(mu[i],predictors[m](mu[i])-10),color="red",weight='bold',fontsize=10,ha='center',va='center')
+        plt.title("Machine "+str(m))
+    plt.show()
+        
 def showMarge(machine,livVal,dmax,M):
     print("MARGES : ")
     marges=np.array(dmax)-np.array(livVal)
